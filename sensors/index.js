@@ -1,19 +1,35 @@
 const sql = require('mssql')
 var config = {  
-    userName: process.env.DB_USERNAME,  
+    user: process.env.DB_USERNAME,  
     password: process.env.DB_PASSWORD,  
     server: 'airtracker.database.windows.net',  
+    database: 'airtracker-sensors',
     port: 1433,
-    options: {encrypt: true, database: 'airtracker-sensors-db'}
+    options: {encrypt: true}
 };
-        let pool = await sql.connect(config);
-        let result1 = await pool.request()
-            .input('device', sql.String, value)
-            .query('select * from dbo.Sensors where device = @device');
+
+var connectionPool;
+sql.connect(config).then(pool => {
+    connectionPool = pool;
+    }).catch(err => {
+        console.log("Catch Error="+ err);
+    });
+    
+sql.on('error', err => {
+    console.log("Error="+ err);
+})
 
 module.exports = function (context, req) {
-    if(connection) {
-        context.log('Ferhat:'+ process.env['SQLCONNSTR_airtracker-sensors-db']);
+        
+    if(connectionPool) {
+        connectionPool.request()
+            .input('device', sql.VarChar, '66')
+            .query('select * from dbo.Sensors where device = @device')
+            .then(result => {
+                context.log(result)
+            }).catch(err => {
+                context.log("Catch Error="+ err);
+            });
         var response  = [
             { 
             "lat": 51.508515,

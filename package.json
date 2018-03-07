@@ -1,8 +1,5 @@
 {
-    "engines" : { "node" : ">=8.9.4" },
     "dependencies": {
-        "tedious": "*",
-        "tedious-promises": "*",
         "mssql": "*"
     }
 }
