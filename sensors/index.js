@@ -1,4 +1,5 @@
 module.exports = function (context, req) {
+    context.log('Ferhat:'+ process.env['SQLCONNSTR_airtracker-sensors-db']);
     var response  = [
     { 
     "lat": 51.508515,
