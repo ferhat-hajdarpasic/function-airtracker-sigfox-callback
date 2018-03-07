@@ -26,7 +26,15 @@ module.exports = function (context, req) {
             .input('device', sql.VarChar, '66')
             .query('select * from dbo.Sensors where device = @device')
             .then(result => {
-                context.log(result)
+                context.log('result.recordset' + JSON.stringify(result.recordset));
+                context.log('result.rowsAffected=' + result.rowsAffected);
+                if(result.rowsAffected == 0) {
+                    context.log("Insert new row with request data");
+                } else if(result.rowsAffected == 1) {
+                    context.log("Update existing with request data");
+                } else {
+                    context.log("There cannot be more than 1 record.");
+                }
             }).catch(err => {
                 context.log("Catch Error="+ err);
             });
