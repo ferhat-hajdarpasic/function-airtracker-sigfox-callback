@@ -1,6 +1,7 @@
 {
     "dependencies": {
         "tedious": "*",
-        "tedious-promises": "*"
+        "tedious-promises": "*",
+        "mssql": "*"
     }
 }
