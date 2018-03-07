@@ -1,4 +1,4 @@
-var Connection = require('tedious').Connection;
+const sql = require('mssql')
 var config = {  
     userName: process.env.DB_USERNAME,  
     password: process.env.DB_PASSWORD,  
@@ -6,10 +6,10 @@ var config = {
     port: 1433,
     options: {encrypt: true, database: 'airtracker-sensors-db'}
 };
-var connection = new Connection(config);  
-    connection.on('connect', function(err) {  
-        context.log('Ferhat:'+ process.env['SQLCONNSTR_airtracker-sensors-db']);
-    });  
+        let pool = await sql.connect(config);
+        let result1 = await pool.request()
+            .input('device', sql.String, value)
+            .query('select * from dbo.Sensors where device = @device');
 
 module.exports = function (context, req) {
     if(connection) {
