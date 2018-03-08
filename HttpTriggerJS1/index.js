@@ -16,9 +16,6 @@ module.exports = function (context, req) {
             context.done();      
         }).catch(function(message) {
             context.log(message);
-            context.res = {
-                status: 500
-            };            
             context.done();      
         });
     } else {
