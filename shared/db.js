@@ -25,6 +25,9 @@ module.exports = function (context, req) {
             if(connectionPool) {
                 return connectionPool.request();
             }
+        },
+        transaction: function() {
+            return new sql.Transaction(connectionPool);
         }
     };
 }

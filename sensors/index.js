@@ -1,4 +1,3 @@
-const sql = require('mssql')
 var db = require('../shared/db.js')();
 
 module.exports = function (context, req) {
