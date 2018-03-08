@@ -1,6 +1,5 @@
 var db = require('../shared/db.js')();
 module.exports = function (context, req) {
-    var dbRequest = db.request();        
     context.log('req.body = ' + JSON.stringify(req.body));
 
     context.res = {
@@ -13,12 +12,14 @@ module.exports = function (context, req) {
             context.log(message);
             context.res = {
                 status: 200
-            };            
+            };
+            context.done();      
         }).catch(function(message) {
             context.log(message);
             context.res = {
                 status: 500
             };            
+            context.done();      
         });
     } else {
         context.log('Received no data in the body.');
