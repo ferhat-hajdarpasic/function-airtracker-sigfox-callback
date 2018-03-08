@@ -1,6 +1,7 @@
+var sql = require('mssql');
 var db = require('../shared/db.js')();
 module.exports = function (context, req) {
-    var dbRequest = db.dbRequest();        
+    var dbRequest = db.request();        
     context.log('req.body = ' + JSON.stringify(req.body));
 
     context.res = {
@@ -9,7 +10,7 @@ module.exports = function (context, req) {
 
     if(req.body.device) {
         if(dbRequest) {
-            dbRequest.input('device', sql.VarChar, '66')
+            dbRequest.input('device', sql.VarChar, req.body.device)
                 .query('select * from dbo.Sensors where device = @device')
                 .then(result => {
                     context.log('result.recordset' + JSON.stringify(result.recordset));
@@ -19,7 +20,7 @@ module.exports = function (context, req) {
                         var query = `insert into dbo.Sensors (device, data, station, rssi) values ('${req.body.device}', '${req.body.data}', '${req.body.station}', '${req.body.rssi}')`;
                     } else if(result.rowsAffected == 1) {
                         context.log("Update existing with request data");
-                        var query = `update dbo.Sensors set data='${req.body.data}', station = '${req.body.station}', rssi = '${req.body.rssi}') where device = '${req.body.device}'`;
+                        var query = `update dbo.Sensors set data='${req.body.data}', station = '${req.body.station}', rssi = '${req.body.rssi}' where device = '${req.body.device}'`;
                     } else {
                         context.log("There cannot be more than 1 record.");
                     }
