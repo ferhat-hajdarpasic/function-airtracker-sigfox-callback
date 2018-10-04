@@ -1,5 +1,7 @@
+var ftpsheet = require('../shared/ftp-sheet.js')();
 module.exports = function (context, req) {
-    context.log('Received = ' + JSON.stringify(req.query));
+    context.log(' = ' + JSON.stringify(req.query));
+    ftpsheet();
     context.res = {
         body: {
             '2BEED9': {
