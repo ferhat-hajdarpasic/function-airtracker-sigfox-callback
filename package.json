@@ -1,6 +1,9 @@
 {
     "dependencies": {
         "mssql": "*",
-        "request": "*"
+        "request": "*",
+        "basic-ftp": "^2.13.2",
+        "googleapis": "^33.0.0",
+        "stream-buffers": "^3.0.2"
     }
 }
