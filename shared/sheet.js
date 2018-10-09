@@ -1,7 +1,6 @@
 //export GOOGLE_APPLICATION_CREDENTIALS=/home/ferhat/carbonblue/carbonblue.json
 var http = require('http');
 const { google } = require('googleapis');
-let privatekey = require("./carbonblue.json");
 let sheets = undefined;
 
 async function connect() {
