@@ -12,7 +12,7 @@ module.exports = function (context, req) {
                         name: "Ferhat Hajdarpasic"
                     }
                 ],
-                subject: "Hello, World!"
+                subject: `Registration received for ${req.query.name}`
             }
         ],
         from: {
@@ -23,11 +23,11 @@ module.exports = function (context, req) {
             email: "fred.hajdarpasic@outlook.com",
             name: "Fred Hajdarpasic"
         },
-        subject: "Hello, World!",
+        subject: `Registration received for ${req.query.name}`,
         content: [
             {
                 type: "text/html",
-                value: "<html><p>Hello, world!</p></html>"
+                value: `<html><p>${req.query.name}</p><p>${req.query.email}</p></html>`
             }
         ]
     };
@@ -39,9 +39,12 @@ module.exports = function (context, req) {
             url: "https://api.sendgrid.com/v3/mail/send",
             method: "POST",
             json: true,
+            headers: {
+                "Authorization": "Bearer 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",  
+            },
             body: body
         }, function (error, response, body) {
-            console.log(response);
+            context.log(response);
         });
 
 
